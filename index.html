@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ポモドーロタイマー</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>ポモドーロタイマー</h1>
+
+    <div class="mode-tabs">
+      <button class="tab active" data-mode="work" data-minutes="25">作業 25分</button>
+      <button class="tab" data-mode="short" data-minutes="5">小休憩 5分</button>
+      <button class="tab" data-mode="long" data-minutes="15">長休憩 15分</button>
+    </div>
+
+    <div class="timer-ring">
+      <svg viewBox="0 0 200 200">
+        <circle class="ring-bg" cx="100" cy="100" r="90" />
+        <circle class="ring-progress" cx="100" cy="100" r="90" />
+      </svg>
+      <div class="time-display" id="timeDisplay">25:00</div>
+    </div>
+
+    <div class="controls">
+      <button id="startBtn">開始</button>
+      <button id="pauseBtn" disabled>一時停止</button>
+      <button id="resetBtn">リセット</button>
+    </div>
+
+    <div class="session-count">
+      完了したポモドーロ: <span id="sessionCount">0</span> 🍅
+    </div>
+  </div>
+
+  <audio id="dingSound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
