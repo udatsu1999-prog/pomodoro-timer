@@ -176,7 +176,7 @@ export default function ResultCard({ result }: { result: ResultStage }) {
         href={servicesHref}
         className="flex h-14 items-center justify-center rounded-full bg-orange px-8 text-center text-base font-bold text-white shadow-lg shadow-orange/25 transition-all hover:bg-orange-dark active:scale-[0.98]"
       >
-        あなたに合う転職サービスを見る
+        おすすめの選択肢を見る
       </Link>
 
       <EmpathyChecklist items={result.empathyChecks} />
