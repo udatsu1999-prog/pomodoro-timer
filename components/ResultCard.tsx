@@ -45,6 +45,26 @@ function Section({
   );
 }
 
+function EmpathyChecklist({ items }: { items: string[] }) {
+  return (
+    <div className="rounded-2xl border border-blue/20 bg-blue/5 p-5 sm:p-6">
+      <h2 className="text-base font-bold text-navy">
+        こんな状態ではありませんか？
+      </h2>
+      <ul className="mt-4 flex flex-col gap-3">
+        {items.map((item) => (
+          <li key={item} className="flex items-start gap-3 text-sm text-text">
+            <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue text-xs font-bold text-white">
+              ✓
+            </span>
+            <span className="leading-relaxed">{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function ResultCard({ result }: { result: ResultStage }) {
   const zone = zones[result.zoneId];
   const category = serviceCategories.find(
@@ -64,6 +84,10 @@ export default function ResultCard({ result }: { result: ResultStage }) {
         {result.catchcopy}
       </p>
 
+      <div className="mt-6">
+        <EmpathyChecklist items={result.empathyChecks} />
+      </div>
+
       <div className="mt-6 grid grid-cols-1 gap-4 rounded-xl bg-bg-soft p-4 sm:grid-cols-3">
         <ScoreGauge label="転職緊急度" value={result.urgency} />
         <ScoreGauge label="現職継続推奨度" value={result.stayScore} />
@@ -75,12 +99,12 @@ export default function ResultCard({ result }: { result: ResultStage }) {
           <p className="leading-relaxed text-text">{result.state}</p>
         </Section>
 
-        <Section title="モヤモヤの主な原因">
-          <ul className="list-disc space-y-1 pl-5 text-text">
-            {result.causes.map((cause) => (
-              <li key={cause}>{cause}</li>
-            ))}
-          </ul>
+        <Section title="なぜその状態になっているのか">
+          <p className="leading-relaxed text-text">{result.causeNarrative}</p>
+        </Section>
+
+        <Section title="このままだとどうなるか">
+          <p className="leading-relaxed text-text">{result.consequence}</p>
         </Section>
 
         <Section title="今すぐ避けたい行動">
@@ -91,7 +115,7 @@ export default function ResultCard({ result }: { result: ResultStage }) {
           </ul>
         </Section>
 
-        <Section title="次に取るべき3つの行動">
+        <Section title="今やるべきこと3つ">
           <ol className="list-decimal space-y-1 pl-5 text-text">
             {result.nextActions.map((action) => (
               <li key={action}>{action}</li>
