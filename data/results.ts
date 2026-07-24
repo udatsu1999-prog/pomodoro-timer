@@ -61,6 +61,7 @@ export const results: ResultStage[] = [
     zoneId: "danger",
     name: "限界寸前ステージ",
     catchcopy: "頑張り続けるより、まず自分を守ることが必要な状態です。",
+    imageUrl: "/stages/genkai-sunzen.png",
     state: "心身負担が非常に高く、現在の環境を早めに見直す必要があります。",
     empathyChecks: [
       "朝、目覚まし時計を何度も止めてしまう",
@@ -92,6 +93,7 @@ export const results: ResultStage[] = [
     zoneId: "danger",
     name: "我慢しすぎステージ",
     catchcopy: "まだ頑張れるではなく、頑張りすぎていないかを確認しましょう。",
+    imageUrl: "/stages/gaman-shisugi.png",
     state: "不満やストレスを抱えながら、周囲を優先して耐え続けている状態です。",
     empathyChecks: [
       "不満はあるのに、周りには「大丈夫です」と言ってしまう",
@@ -123,6 +125,7 @@ export const results: ResultStage[] = [
     zoneId: "danger",
     name: "消耗中ステージ",
     catchcopy: "仕事によって、少しずつエネルギーを失っています。",
+    imageUrl: "/stages/shomo-chu.png",
     state: "大きな決断には至っていませんが、日々の仕事で疲労が蓄積しています。",
     empathyChecks: [
       "以前は楽しめていたことに、あまり興味が持てなくなった",
@@ -154,6 +157,7 @@ export const results: ResultStage[] = [
     zoneId: "danger",
     name: "自信喪失ステージ",
     catchcopy: "今の評価が、あなた自身の価値とは限りません。",
+    imageUrl: "/stages/jishin-soshitsu.png",
     state: "現在の環境で強みを発揮できず、自己評価が下がっている状態です。",
     empathyChecks: [
       "自分の仕事に、あまり自信が持てない",
@@ -185,6 +189,7 @@ export const results: ResultStage[] = [
     zoneId: "prep",
     name: "モヤモヤ継続ステージ",
     catchcopy: "違和感の正体を整理するところから始めましょう。",
+    imageUrl: "/stages/moyamoya-keizoku.png",
     state: "今の職場に不満はありますが、まだ具体的な行動には移れていません。",
     empathyChecks: [
       "何が不満か分からないけど、なんとなくモヤモヤする",
@@ -216,6 +221,7 @@ export const results: ResultStage[] = [
     zoneId: "prep",
     name: "情報収集中ステージ",
     catchcopy: "今は、焦らず選択肢を増やす時期です。",
+    imageUrl: "/stages/joho-shushu.png",
     state: "転職への興味が高まり、求人や他社の情報を集め始めています。",
     empathyChecks: [
       "求人サイトを、つい開いてしまう",
@@ -247,6 +253,7 @@ export const results: ResultStage[] = [
     zoneId: "prep",
     name: "市場価値確認ステージ",
     catchcopy: "今の評価だけで、自分の可能性を決める必要はありません。",
+    imageUrl: "/stages/shijo-kachi-kakunin.png",
     state: "自分の経験やスキルが、他社でどう評価されるのかを確認したい状態です。",
     empathyChecks: [
       "今の評価に、心のどこかで納得できていない",
@@ -278,6 +285,7 @@ export const results: ResultStage[] = [
     zoneId: "prep",
     name: "決断直前ステージ",
     catchcopy: "動き出す準備は、ほぼ整っています。",
+    imageUrl: "/stages/ketsudan-chokuzen.png",
     state: "転職への意志が強く、条件が合えば具体的な行動に移れる状態です。",
     empathyChecks: [
       "良い求人があれば、いつでも動ける準備ができている",
@@ -309,6 +317,7 @@ export const results: ResultStage[] = [
     zoneId: "improve",
     name: "人間関係見直しステージ",
     catchcopy: "仕事そのものより、周囲との関係が負担になっています。",
+    imageUrl: "/stages/ningen-kankei-minaoshi.png",
     state: "仕事内容ではなく、上司や同僚との関係が主な悩みになっています。",
     empathyChecks: [
       "仕事内容よりも、特定の人との関係がしんどい",
@@ -340,6 +349,7 @@ export const results: ResultStage[] = [
     zoneId: "improve",
     name: "環境ミスマッチステージ",
     catchcopy: "あなたが悪いのではなく、環境が合っていない可能性があります。",
+    imageUrl: "/stages/kankyo-mismatch.png",
     state: "会社文化、働き方、価値観など、職場環境とのズレが大きい状態です。",
     empathyChecks: [
       "会社の考え方や進め方に、しっくりこないことが多い",
@@ -371,6 +381,7 @@ export const results: ResultStage[] = [
     zoneId: "improve",
     name: "評価不一致ステージ",
     catchcopy: "努力と評価が噛み合っているか、見直す時期です。",
+    imageUrl: "/stages/hyoka-fuicchi.png",
     state: "成果や貢献に対して、給与や評価が十分でないと感じています。",
     empathyChecks: [
       "頑張っている自覚はあるのに、評価に反映されない",
@@ -402,6 +413,7 @@ export const results: ResultStage[] = [
     zoneId: "improve",
     name: "成長停滞ステージ",
     catchcopy: "今の環境で、これ以上成長できるかを考える時期です。",
+    imageUrl: "/stages/seicho-teitai.png",
     state: "仕事に慣れた一方で、新しい経験や成長実感が少なくなっています。",
     empathyChecks: [
       "仕事に慣れてしまい、新しい刺激があまりない",
@@ -433,6 +445,7 @@ export const results: ResultStage[] = [
     zoneId: "redesign",
     name: "やりたいこと迷子ステージ",
     catchcopy: "答えを急ぐより、自分の希望を整理しましょう。",
+    imageUrl: "/stages/yaritai-koto-maigo.png",
     state: "転職への興味はありますが、次に何をしたいのかが定まっていません。",
     empathyChecks: [
       "転職に興味はあるけど、何をしたいか分からない",
@@ -464,6 +477,7 @@ export const results: ResultStage[] = [
     zoneId: "redesign",
     name: "強み未発見ステージ",
     catchcopy: "まだ言葉にできていない強みがあるかもしれません。",
+    imageUrl: "/stages/tsuyomi-mihakken.png",
     state: "自分の経験や得意なことを、仕事の強みとして認識できていません。",
     empathyChecks: [
       "自分の強みを聞かれても、うまく答えられない",
@@ -495,6 +509,7 @@ export const results: ResultStage[] = [
     zoneId: "redesign",
     name: "キャリア再設計ステージ",
     catchcopy: "一度立ち止まり、働き方全体を組み直す時期です。",
+    imageUrl: "/stages/career-saisekkei.png",
     state: "転職するかどうか以前に、価値観や人生設計から考え直す必要があります。",
     empathyChecks: [
       "転職するかどうか以前に、働き方そのものに疑問がある",
@@ -526,6 +541,7 @@ export const results: ResultStage[] = [
     zoneId: "redesign",
     name: "方向転換検討ステージ",
     catchcopy: "これまでとは違う選択肢も、現実的になり始めています。",
+    imageUrl: "/stages/hoko-tenkan-kento.png",
     state: "異業種、異職種、働き方の変更など、新しい方向を検討している状態です。",
     empathyChecks: [
       "今までとは違う仕事に、興味が湧き始めている",
