@@ -24,8 +24,8 @@ export default function ServicesPage() {
         {siteConfig.name}
         は特定のサービスへの登録を強制するものではありません。診断結果を一つの参考として、気になるカテゴリーから情報収集を始めてみてください。
       </p>
-      <p className="mt-4 inline-block rounded-lg bg-bg-soft px-3 py-2 text-xs font-semibold text-text-sub">
-        本ページは広告を含みます
+      <p className="mt-4 inline-block rounded-lg border border-orange/30 bg-orange/10 px-4 py-2 text-sm font-bold text-navy">
+        本ページはプロモーションを含みます
       </p>
 
       <div className="mt-10 flex flex-col gap-14">
