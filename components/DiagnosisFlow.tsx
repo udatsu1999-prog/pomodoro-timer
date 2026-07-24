@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { questions, TOTAL_QUESTIONS } from "@/data/questions";
 import { calculateResult } from "@/lib/calculateResult";
@@ -23,6 +23,8 @@ interface StoredState {
 function createEmptyAnswers(): (number | null)[] {
   return Array(TOTAL_QUESTIONS).fill(null);
 }
+
+const AUTO_ADVANCE_DELAY_MS = 300;
 
 interface FlowState {
   hydrated: boolean;
@@ -60,6 +62,7 @@ export default function DiagnosisFlow() {
     answers: createEmptyAnswers(),
   });
   const { hydrated, currentIndex, answers } = flow;
+  const advanceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     // localStorageはブラウザにしか存在しないため、マウント後の一度だけ読み込んで反映する。
@@ -73,6 +76,12 @@ export default function DiagnosisFlow() {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [answers, currentIndex, hydrated]);
 
+  useEffect(() => {
+    return () => {
+      if (advanceTimeoutRef.current) clearTimeout(advanceTimeoutRef.current);
+    };
+  }, []);
+
   if (!hydrated) {
     return null;
   }
@@ -82,29 +91,41 @@ export default function DiagnosisFlow() {
   const isLastQuestion = currentIndex === TOTAL_QUESTIONS - 1;
   const canProceed = selectedValue !== null;
 
+  const clearAdvanceTimeout = () => {
+    if (advanceTimeoutRef.current) {
+      clearTimeout(advanceTimeoutRef.current);
+      advanceTimeoutRef.current = null;
+    }
+  };
+
   const handleSelect = (value: number) => {
     trackQuestionAnswer(question.id, value);
+    clearAdvanceTimeout();
+
     setFlow((prev) => {
       const nextAnswers = [...prev.answers];
       nextAnswers[prev.currentIndex] = value;
       return { ...prev, answers: nextAnswers };
     });
+
+    if (!isLastQuestion) {
+      advanceTimeoutRef.current = setTimeout(() => {
+        advanceTimeoutRef.current = null;
+        setFlow((prev) => ({ ...prev, currentIndex: prev.currentIndex + 1 }));
+      }, AUTO_ADVANCE_DELAY_MS);
+    }
   };
 
   const handleBack = () => {
+    clearAdvanceTimeout();
     setFlow((prev) => ({
       ...prev,
       currentIndex: Math.max(prev.currentIndex - 1, 0),
     }));
   };
 
-  const handleNext = () => {
+  const handleShowResult = () => {
     if (!canProceed) return;
-
-    if (!isLastQuestion) {
-      setFlow((prev) => ({ ...prev, currentIndex: prev.currentIndex + 1 }));
-      return;
-    }
 
     const finalAnswers = answers.map((value) => value ?? 3);
     const { slug } = calculateResult(finalAnswers);
@@ -114,6 +135,7 @@ export default function DiagnosisFlow() {
   };
 
   const handleRestart = () => {
+    clearAdvanceTimeout();
     trackDiagnosisRestart();
     window.localStorage.removeItem(STORAGE_KEY);
     setFlow({ hydrated: true, answers: createEmptyAnswers(), currentIndex: 0 });
@@ -139,14 +161,16 @@ export default function DiagnosisFlow() {
           前の質問へ
         </button>
 
-        <button
-          type="button"
-          onClick={handleNext}
-          disabled={!canProceed}
-          className="flex-1 rounded-full bg-orange px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-orange-dark disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          {isLastQuestion ? "結果を見る" : "次へ"}
-        </button>
+        {isLastQuestion && (
+          <button
+            type="button"
+            onClick={handleShowResult}
+            disabled={!canProceed}
+            className="flex-1 rounded-full bg-orange px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-orange-dark disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            結果を見る
+          </button>
+        )}
       </div>
 
       <button
