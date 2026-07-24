@@ -3,7 +3,33 @@
 import type { Service } from "@/data/services";
 import { trackServiceLinkClick } from "@/lib/analytics";
 
+function ComingSoonCard() {
+  return (
+    <div className="flex h-full flex-col items-center justify-center rounded-2xl bg-white p-6 text-center shadow-sm ring-1 ring-slate-100">
+      <span className="inline-block rounded-full bg-orange/10 px-3 py-1 text-xs font-bold text-orange">
+        近日公開
+      </span>
+      <p className="mt-4 text-lg font-bold text-navy">厳選中 近日公開！</p>
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-text-sub">
+        あなたに合うサービスを厳選しています。準備が整い次第、こちらに公開します。
+      </p>
+      <button
+        type="button"
+        disabled
+        aria-disabled="true"
+        className="mt-5 block w-full cursor-not-allowed rounded-full bg-slate-200 px-5 py-3 text-center text-sm font-bold text-slate-400"
+      >
+        近日公開
+      </button>
+    </div>
+  );
+}
+
 export default function ServiceCard({ service }: { service: Service }) {
+  if (service.comingSoon || !service.name) {
+    return <ComingSoonCard />;
+  }
+
   return (
     <div className="flex h-full flex-col rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
       <h3 className="text-lg font-bold text-navy">{service.name}</h3>
