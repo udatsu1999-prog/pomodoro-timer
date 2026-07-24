@@ -172,12 +172,17 @@ export default function ResultCard({ result }: { result: ResultStage }) {
 
       <SummaryCard summary={result.summary} />
 
-      <Link
-        href={servicesHref}
-        className="flex h-14 items-center justify-center rounded-full bg-orange px-8 text-center text-base font-bold text-white shadow-lg shadow-orange/25 transition-all hover:bg-orange-dark active:scale-[0.98]"
-      >
-        おすすめの選択肢を見る
-      </Link>
+      <div>
+        <Link
+          href={servicesHref}
+          className="flex h-14 items-center justify-center rounded-full bg-orange px-8 text-center text-base font-bold text-white shadow-lg shadow-orange/25 transition-all hover:bg-orange-dark active:scale-[0.98]"
+        >
+          おすすめの選択肢を見る
+        </Link>
+        <p className="mt-2 text-center text-xs text-text-sub">
+          ※本ページはプロモーションを含みます
+        </p>
+      </div>
 
       <EmpathyChecklist items={result.empathyChecks} />
 

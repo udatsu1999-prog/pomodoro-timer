@@ -8,7 +8,7 @@ export const siteConfig = {
   instagram: "https://www.instagram.com/",
   instagramName: "仕事辞めたい…と思ったら",
   operator: "キャリア迷子診断 運営事務局",
-  contactEmail: "contact@example.com",
+  contactEmail: "udatsu1999@icloud.com",
 };
 
 export type SiteConfig = typeof siteConfig;
