@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/siteConfig";
 
@@ -32,23 +33,51 @@ const notices = [
 export default function Home() {
   return (
     <div>
-      <section className="bg-gradient-to-b from-bg-soft to-white px-4 pb-14 pt-14 sm:pt-20">
-        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          <p className="text-sm font-bold tracking-wide text-blue">
-            {siteConfig.name}
-          </p>
-          <h1 className="mt-3 text-2xl font-bold leading-snug text-navy sm:text-4xl">
-            {siteConfig.catchcopy}
-          </h1>
-          <p className="mt-5 text-base font-medium text-text-sub sm:text-lg">
-            3分で、あなたのキャリアの現在地がわかります
-          </p>
-          <Link
-            href="/diagnosis"
-            className="mt-8 inline-block w-full max-w-xs rounded-full bg-orange px-8 py-4 text-center text-base font-bold text-white shadow-sm transition-colors hover:bg-orange-dark sm:w-auto"
-          >
-            無料で診断を始める
-          </Link>
+      <section className="overflow-hidden bg-gradient-to-b from-bg-soft to-white px-4 pb-12 pt-10 sm:pb-16 sm:pt-14">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-10 md:flex-row md:items-center md:gap-14">
+          <div className="w-full md:order-2 md:max-w-[600px]">
+            <Image
+              src="/hero-crossroads.png"
+              alt="霧の中の暗い道と、朝日が差す明るい道の分岐点に立ち、これからの進路を考えるビジネスパーソンのイラスト"
+              width={1536}
+              height={1024}
+              priority
+              sizes="(min-width: 768px) 600px, 100vw"
+              className="w-full rounded-[24px] shadow-xl shadow-navy/10"
+            />
+          </div>
+
+          <div className="flex w-full flex-col items-center text-center md:order-1 md:items-start md:text-left">
+            <h1 className="text-[28px] font-bold leading-snug text-navy sm:text-4xl">
+              今の仕事を続けるべきか、
+              <br />
+              見直すべきか。
+            </h1>
+
+            <p className="mt-5 text-base font-bold text-text sm:text-lg">
+              3分でわかる
+              <br />
+              キャリア迷子診断
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-text-sub sm:text-base">
+              現在のキャリア状態を
+              <br />
+              16ステージで診断します
+            </p>
+
+            <Link
+              href="/diagnosis"
+              className="mt-8 flex h-14 w-[90%] items-center justify-center rounded-full bg-orange px-8 text-base font-bold text-white shadow-lg shadow-orange/25 transition-all hover:bg-orange-dark hover:shadow-xl active:scale-[0.97] md:w-auto md:px-10"
+            >
+              無料で診断を始める
+            </Link>
+
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs font-medium text-text-sub md:justify-start">
+              <span>✓ 約3分で完了</span>
+              <span>✓ 登録不要</span>
+              <span>✓ 完全無料</span>
+            </div>
+          </div>
         </div>
       </section>
 
