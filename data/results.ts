@@ -20,6 +20,12 @@ export interface ResultStage {
   zoneId: ZoneId;
   name: string;
   catchcopy: string;
+  /**
+   * ステージビジュアル画像のパス。
+   * 未設定の場合は共通プレースホルダー画像が使われる。
+   * 将来、ステージ専用イラストが用意でき次第ここにパスを設定するだけで差し替えられる。
+   */
+  imageUrl?: string;
   state: string;
   /** こんな状態ではありませんか？（共感チェック4項目） */
   empathyChecks: string[];
@@ -31,12 +37,17 @@ export interface ResultStage {
   nextActions: string[];
   continueOrChangeComment: string;
   recommendedCategoryId: ServiceCategoryId;
-  /** 転職緊急度 1〜5 */
-  urgency: number;
-  /** 現職継続推奨度 1〜5 */
-  stayScore: number;
-  /** 情報収集推奨度 1〜5 */
-  researchScore: number;
+  /** 診断サマリーカードに表示する4項目（1〜5） */
+  summary: {
+    /** キャリア方向性 */
+    careerDirection: number;
+    /** 転職準備度 */
+    jobChangeReadiness: number;
+    /** 現職適合度 */
+    currentFit: number;
+    /** 情報収集度 */
+    infoGathering: number;
+  };
 }
 
 /**
@@ -73,9 +84,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "今の環境を続けるかどうかを急いで決める前に、心身を回復させることを優先しましょう。心身の不調を感じている場合は、医療機関や公的相談窓口への相談も検討してください。",
     recommendedCategoryId: "general",
-    urgency: 5,
-    stayScore: 1,
-    researchScore: 3,
+    summary: { careerDirection: 2, jobChangeReadiness: 2, currentFit: 2, infoGathering: 3 },
   },
   {
     slug: "gaman-shisugi",
@@ -106,9 +115,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "今の職場を続けるにしても、まずは我慢の限界に近づいていないかを確認する時期です。一つの判断材料として、自分の状態を整理してみましょう。",
     recommendedCategoryId: "general",
-    urgency: 4,
-    stayScore: 2,
-    researchScore: 3,
+    summary: { careerDirection: 2, jobChangeReadiness: 2, currentFit: 2, infoGathering: 3 },
   },
   {
     slug: "shomo-chu",
@@ -139,9 +146,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "続けるか見直すかを決める前に、まずは消耗のペースを緩めることを考えてみましょう。情報収集から始めるのがおすすめです。",
     recommendedCategoryId: "second-shinsotsu",
-    urgency: 4,
-    stayScore: 2,
-    researchScore: 4,
+    summary: { careerDirection: 2, jobChangeReadiness: 2, currentFit: 3, infoGathering: 4 },
   },
   {
     slug: "jishin-soshitsu",
@@ -172,9 +177,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "今の職場を続けるか見直すかの前に、まずは自分自身の状態を客観的に見つめ直すことをおすすめします。一つの判断材料として活用してください。",
     recommendedCategoryId: "second-shinsotsu",
-    urgency: 3,
-    stayScore: 2,
-    researchScore: 3,
+    summary: { careerDirection: 2, jobChangeReadiness: 2, currentFit: 2, infoGathering: 3 },
   },
   {
     slug: "moyamoya-keizoku",
@@ -205,9 +208,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "続けるか見直すかを決めるのはまだ先で構いません。まずはモヤモヤの正体を整理することから始めるのがおすすめです。",
     recommendedCategoryId: "general",
-    urgency: 3,
-    stayScore: 3,
-    researchScore: 3,
+    summary: { careerDirection: 2, jobChangeReadiness: 2, currentFit: 3, infoGathering: 3 },
   },
   {
     slug: "joho-shushu",
@@ -238,9 +239,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "続けるか見直すかを決める判断材料を増やす時期です。情報収集から始めるのがおすすめです。",
     recommendedCategoryId: "second-shinsotsu",
-    urgency: 3,
-    stayScore: 3,
-    researchScore: 4,
+    summary: { careerDirection: 3, jobChangeReadiness: 3, currentFit: 3, infoGathering: 4 },
   },
   {
     slug: "shijo-kachi-kakunin",
@@ -271,9 +270,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "続けるか見直すかを判断する前に、まずは自分の市場価値を確認してみることを検討する時期です。一つの判断材料として活用してください。",
     recommendedCategoryId: "high-class",
-    urgency: 3,
-    stayScore: 2,
-    researchScore: 5,
+    summary: { careerDirection: 3, jobChangeReadiness: 3, currentFit: 3, infoGathering: 5 },
   },
   {
     slug: "ketsudan-chokuzen",
@@ -304,9 +301,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "見直しを検討する時期に来ていますが、最終判断は条件や選考結果を確認してからでも遅くありません。一つの判断材料として活用してください。",
     recommendedCategoryId: "high-class",
-    urgency: 4,
-    stayScore: 2,
-    researchScore: 5,
+    summary: { careerDirection: 4, jobChangeReadiness: 5, currentFit: 2, infoGathering: 5 },
   },
   {
     slug: "ningen-kankei-minaoshi",
@@ -337,9 +332,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "仕事内容自体への不満が少ない場合は、関係性の見直しから検討するのがおすすめです。それでも改善が難しい場合は、他の選択肢も判断材料に加えてみましょう。",
     recommendedCategoryId: "general",
-    urgency: 2,
-    stayScore: 4,
-    researchScore: 2,
+    summary: { careerDirection: 3, jobChangeReadiness: 2, currentFit: 4, infoGathering: 2 },
   },
   {
     slug: "kankyo-mismatch",
@@ -370,9 +363,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "環境とのズレが大きい場合、見直しを検討する時期かもしれません。まずは自分に合う環境の条件を整理することから始めてみましょう。",
     recommendedCategoryId: "second-shinsotsu",
-    urgency: 3,
-    stayScore: 3,
-    researchScore: 3,
+    summary: { careerDirection: 3, jobChangeReadiness: 3, currentFit: 2, infoGathering: 3 },
   },
   {
     slug: "hyoka-fuicchi",
@@ -403,9 +394,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "評価制度の見直しを社内で相談しても改善が難しい場合は、他社の評価軸も判断材料として比較してみることをおすすめします。",
     recommendedCategoryId: "high-class",
-    urgency: 3,
-    stayScore: 3,
-    researchScore: 3,
+    summary: { careerDirection: 3, jobChangeReadiness: 3, currentFit: 3, infoGathering: 3 },
   },
   {
     slug: "seicho-teitai",
@@ -436,9 +425,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "社内での成長機会を確認しつつ、難しい場合は環境を変えることも一つの判断材料として検討してみましょう。",
     recommendedCategoryId: "it-senmon",
-    urgency: 2,
-    stayScore: 3,
-    researchScore: 3,
+    summary: { careerDirection: 3, jobChangeReadiness: 2, currentFit: 3, infoGathering: 3 },
   },
   {
     slug: "yaritai-koto-maigo",
@@ -469,9 +456,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "続けるか見直すかを決める前に、まずは自分の希望を整理することを優先しましょう。一つの判断材料として活用してください。",
     recommendedCategoryId: "mikeiken",
-    urgency: 2,
-    stayScore: 3,
-    researchScore: 3,
+    summary: { careerDirection: 2, jobChangeReadiness: 2, currentFit: 3, infoGathering: 3 },
   },
   {
     slug: "tsuyomi-mihakken",
@@ -502,9 +487,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "強みが整理できていない段階での判断は急がず、まずは自己理解を深めることから始めるのがおすすめです。",
     recommendedCategoryId: "mikeiken",
-    urgency: 2,
-    stayScore: 3,
-    researchScore: 3,
+    summary: { careerDirection: 2, jobChangeReadiness: 2, currentFit: 3, infoGathering: 3 },
   },
   {
     slug: "career-saisekkei",
@@ -535,9 +518,7 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "続ける・見直すという二択ではなく、働き方そのものを考え直す時期かもしれません。一つの判断材料として、時間をかけて検討してください。",
     recommendedCategoryId: "mikeiken",
-    urgency: 2,
-    stayScore: 2,
-    researchScore: 4,
+    summary: { careerDirection: 2, jobChangeReadiness: 2, currentFit: 2, infoGathering: 4 },
   },
   {
     slug: "hoko-tenkan-kento",
@@ -568,12 +549,29 @@ export const results: ResultStage[] = [
     continueOrChangeComment:
       "見直しを検討する時期ではありますが、新しい方向に進む場合も情報収集から始めるのがおすすめです。",
     recommendedCategoryId: "mikeiken",
-    urgency: 3,
-    stayScore: 2,
-    researchScore: 4,
+    summary: { careerDirection: 3, jobChangeReadiness: 3, currentFit: 2, infoGathering: 4 },
   },
 ];
 
 export function getResultBySlug(slug: string): ResultStage | undefined {
   return results.find((result) => result.slug === slug);
+}
+
+/**
+ * 現在の結果以外から、ゾーンが偏らないように何件かピックアップする。
+ * 「他の診断結果も見てみる」セクション用。
+ */
+export function getOtherResults(currentSlug: string, count = 3): ResultStage[] {
+  const currentIndex = results.findIndex((result) => result.slug === currentSlug);
+  const startIndex = currentIndex === -1 ? 0 : currentIndex;
+  const picks: ResultStage[] = [];
+
+  for (let offset = 1; picks.length < count && offset < results.length; offset++) {
+    const candidate = results[(startIndex + offset * 4) % results.length];
+    if (candidate.slug !== currentSlug && !picks.includes(candidate)) {
+      picks.push(candidate);
+    }
+  }
+
+  return picks;
 }
